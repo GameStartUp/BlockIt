@@ -6,6 +6,8 @@ import BlockIt.Model.Piece;
 import BlockIt.Model.Position;
 
 public class Knight extends Piece{
+	private static int[] xMove = { 1, 2, 2, 1, -1, -2, -2, -1 };
+	private static int[] yMove = { 2, 1, -1, -2, -2, -1, 1, 2 };
 
 	public Knight(pieceColor color, Position position) {
 		super(color, position);
@@ -13,9 +15,14 @@ public class Knight extends Piece{
 	}
 
 	@Override
-	public List<Position> getPossibleMove() {
+	protected int[] getXMove() {
 		// TODO Auto-generated method stub
-		return null;
+		return xMove;
 	}
 
+	@Override
+	protected int[] getYMove() {
+		// TODO Auto-generated method stub
+		return yMove;
+	}
 }

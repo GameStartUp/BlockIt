@@ -13,7 +13,13 @@ public class Queen extends Piece{
 	}
 
 	@Override
-	public List<Position> getPossibleMove() {
+	protected int[] getXMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int[] getYMove() {
 		// TODO Auto-generated method stub
 		return null;
 	}

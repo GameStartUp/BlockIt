@@ -16,7 +16,7 @@ public class Node {
 		parentNode.addChild(this);
 	}
 	
-	public void addChild(Node node){
+	private void addChild(Node node){
 		childNodes.add(node);
 	}
 
