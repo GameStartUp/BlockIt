@@ -1,5 +1,6 @@
 package BlockIt.Piece;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import BlockIt.Model.Piece;
@@ -13,15 +14,16 @@ public class Rook extends Piece{
 	}
 
 	@Override
-	protected int[] getXMove() {
-		// TODO Auto-generated method stub
-		return null;
+	protected List<Position> getMove() {
+		List<Position> moves= new ArrayList<Position>();
+		moves.addAll(getLongMoves(0, 1));
+		moves.addAll(getLongMoves(1, 0));
+		moves.addAll(getLongMoves(0, -1));
+		moves.addAll(getLongMoves(-1, 0));
+		moves.addAll(getLongMoves(1, 1));
+		moves.addAll(getLongMoves(1, -1));
+		moves.addAll(getLongMoves(-1, -1));
+		moves.addAll(getLongMoves(-1, 1));
+		return moves;
 	}
-
-	@Override
-	protected int[] getYMove() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

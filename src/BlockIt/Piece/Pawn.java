@@ -10,8 +10,6 @@ import BlockIt.Model.Position;
 public class Pawn extends Piece{
 	
 	private boolean firstMove=true;
-	private static int[] xMove={0,0};
-	private static int[] yMove={1,2};
 
 	public Pawn(pieceColor color, Position position) {
 		super(color, position);
@@ -25,18 +23,12 @@ public class Pawn extends Piece{
 	}
 
 	@Override
-	protected int[] getXMove() {
-		if(!firstMove){
-			return Arrays.copyOfRange(xMove, 0, xMove.length-1);
+	protected List<Position> getMove() {
+		List<Position> moves=new ArrayList<Position>();
+		if(firstMove){
+			moves.add(Position.getMovePosition(this, 0, 2));
 		}
-		return xMove;
-	}
-
-	@Override
-	protected int[] getYMove() {
-		if(!firstMove){
-			return Arrays.copyOfRange(yMove, 0, yMove.length-1);
-		}
-		return yMove;
+		moves.add(Position.getMovePosition(this, 0, 1));
+		return moves;
 	}
 }

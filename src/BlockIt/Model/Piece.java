@@ -5,18 +5,11 @@ import java.util.List;
 
 public abstract class Piece {
 	public static enum pieceColor{WHITE, BLACK};
-	private Position position;
-	private pieceColor color;
+	protected Position position;
+	protected pieceColor color;
 	
 	public List<Position> getPossibleMove(){
-		List<Position> moves=new ArrayList<Position>();
-		int[] xMove=getXMove();
-		int[] yMove=getYMove();
-		for(int i=0; i<xMove.length; i++){
-			int x=position.x+xMove[i];
-			int y=position.y+yMove[i];
-			moves.add(Position.getPosition(x, y));
-		}
+		List<Position> moves=getMove();
 		
 		//clear up
 		for(Position move:moves){
@@ -47,6 +40,22 @@ public abstract class Piece {
 		}
 	}
 	
-	protected abstract int[] getXMove();
-	protected abstract int[] getYMove();
+	protected List<Position> getLongMoves(int x, int y){
+		List<Position> moves=new ArrayList<Position>();
+		while(Position.getMovePosition(this, x, y)!=null && Position.getMovePosition(this, x, y).getPiece()==null){
+			moves.add(Position.getMovePosition(this, x, y));
+			if(x>0)
+				x++;
+			else if(x<0)
+				x--;
+			
+			if(y>0)
+				y++;
+			else if(y<0)
+				y--;
+		}
+		return moves;
+	}
+	
+	protected abstract List<Position> getMove();
 }

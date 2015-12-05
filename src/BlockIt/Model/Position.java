@@ -26,6 +26,10 @@ public class Position {
 		this.piece = piece;
 	}
 	
+	public static Position getMovePosition(Piece piece, int x, int y){
+		return getPosition(piece.getPosition().x+x, piece.getPosition().y+y);
+	}
+	
 	public static Position getPosition(int x, int y){
 		if(x>=0 && x < Game.boardSize && y >=0 && y < Game.boardSize)
 			return Game.board[x][y];
