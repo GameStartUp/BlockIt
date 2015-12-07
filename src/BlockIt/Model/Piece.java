@@ -3,59 +3,96 @@ package BlockIt.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import BlockIt.Control.Move;
+
 public abstract class Piece {
-	public static enum pieceColor{WHITE, BLACK};
+	public static enum pieceColor {
+		WHITE, BLACK
+	};
+
 	protected Position position;
 	protected pieceColor color;
-	
-	public List<Position> getPossibleMove(){
-		List<Position> moves=getMove();
-		
-		//clear up
-		for(Position move:moves){
-			if(move==null || move.getPiece()!=null){
+
+	public List<Move> getPossibleMove(Position[][] board) {
+		List<Move> moves = getMove();
+
+		// clear up
+		for (Move move : moves) {
+			if (move == null || board[move.toY][move.toX] != null) {
 				moves.remove(move);
 			}
 		}
 		return moves;
 	}
-	
-	public Piece(pieceColor color, Position position){
-		this.color=color;
-		this.position=position;
+
+	public Piece(pieceColor color, Position position) {
+		this.color = color;
+		this.position = position;
 	}
-	
-	public Position getPosition(){
+
+	public Position getPosition() {
 		return position;
 	}
-	
-	public boolean move(Position position){
-		if(this.getPossibleMove().contains(position)){
-			this.position.setPiece(null);
-			this.position=position;
-			this.position.setPiece(this);
-			return true;
-		}else{
-			return false;
-		}
+
+	/**
+	 * @return the color
+	 */
+	public pieceColor getColor() {
+		return color;
 	}
-	
-	protected List<Position> getLongMoves(int x, int y){
-		List<Position> moves=new ArrayList<Position>();
-		while(Position.getMovePosition(this, x, y)!=null && Position.getMovePosition(this, x, y).getPiece()==null){
-			moves.add(Position.getMovePosition(this, x, y));
-			if(x>0)
+
+	/**
+	 * @param color
+	 *            the color to set
+	 */
+	public void setColor(pieceColor color) {
+		this.color = color;
+	}
+
+	/**
+	 * @param position
+	 *            the position to set
+	 */
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	protected List<Move> getLongMoves(int x, int y) {
+		List<Move> moves = new ArrayList<Move>();
+		while (Position.getMovePosition(this, x, y) != null
+				&& Position.getMovePosition(this, x, y).getPiece() == null) {
+			moves.add(Move.getMove(this, x, y));
+			if (x > 0)
 				x++;
-			else if(x<0)
+			else if (x < 0)
 				x--;
-			
-			if(y>0)
+
+			if (y > 0)
 				y++;
-			else if(y<0)
+			else if (y < 0)
 				y--;
 		}
 		return moves;
 	}
-	
-	protected abstract List<Position> getMove();
+
+	protected abstract List<Move> getMove();
+
+	public static pieceColor getOppositeColor(pieceColor color) {
+		if (color == pieceColor.WHITE) {
+			return pieceColor.BLACK;
+		}
+		return pieceColor.WHITE;
+	}
+
+	public Piece copy() {
+		Piece piece = null;
+		try {
+			piece = Class.forName(this.getClass().getName()).asSubclass(Piece.class).newInstance();
+			piece.setColor(this.getColor());
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return piece;
+	}
 }

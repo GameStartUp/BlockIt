@@ -3,20 +3,21 @@ package BlockIt.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import BlockIt.Control.Move;
+
 public class Node {
 	private Node parentNode;
 	private List<Node> childNodes;
-	private Position from, to;
-	
-	public Node(Node parentNode, Position from, Position to) {
+	private Move move;
+
+	public Node(Node parentNode, Move move) {
 		this.parentNode = parentNode;
-		this.from = from;
-		this.to = to;
+		this.setMove(move);
 		this.childNodes = new ArrayList<Node>();
 		parentNode.addChild(this);
 	}
-	
-	private void addChild(Node node){
+
+	private void addChild(Node node) {
 		childNodes.add(node);
 	}
 
@@ -35,16 +36,24 @@ public class Node {
 	}
 
 	/**
-	 * @return the from
+	 * @return the move
 	 */
-	public Position getFrom() {
-		return from;
+	public Move getMove() {
+		return move;
 	}
 
 	/**
-	 * @return the to
+	 * @param move
+	 *            the move to set
 	 */
-	public Position getTo() {
-		return to;
+	public void setMove(Move move) {
+		this.move = move;
+	}
+
+	/**
+	 * @param parentNode the parentNode to set
+	 */
+	public void setParentNode(Node parentNode) {
+		this.parentNode = parentNode;
 	}
 }
