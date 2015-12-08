@@ -9,12 +9,14 @@ public class Node {
 	private Node parentNode;
 	private List<Node> childNodes;
 	private Move move;
+	private Integer heuristic;
 
 	public Node(Node parentNode, Move move) {
 		this.parentNode = parentNode;
 		this.setMove(move);
 		this.childNodes = new ArrayList<Node>();
-		parentNode.addChild(this);
+		if(parentNode!=null)
+			parentNode.addChild(this);
 	}
 
 	private void addChild(Node node) {
@@ -55,5 +57,19 @@ public class Node {
 	 */
 	public void setParentNode(Node parentNode) {
 		this.parentNode = parentNode;
+	}
+
+	/**
+	 * @return the heuristic
+	 */
+	public Integer getHeuristic() {
+		return heuristic;
+	}
+
+	/**
+	 * @param heuristic the heuristic to set
+	 */
+	public void setHeuristic(Integer heuristic) {
+		this.heuristic = heuristic;
 	}
 }

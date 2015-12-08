@@ -41,6 +41,22 @@ public class Move {
 		board[move.fromY][move.fromX].setPiece(null);
 		board[move.toY][move.toX].setPiece(piece);
 		piece.setPosition(board[move.toY][move.toX]);
+		if(board==Game.board){
+			Game.record.add(move);
+		}
+		//Position.printBoard(board);
+		return true;
+	}
+	
+	public static boolean dismove(Position[][] board, Move move) {
+		Piece piece = board[move.toY][move.toX].getPiece();
+		if (piece == null)
+			return false;
+
+		board[move.toY][move.toX].setPiece(null);
+		board[move.fromY][move.fromX].setPiece(piece);
+		piece.setPosition(board[move.fromY][move.fromX]);
+		//Position.printBoard(board);
 		return true;
 	}
 

@@ -6,32 +6,33 @@ import java.util.List;
 
 import BlockIt.Model.Game;
 import BlockIt.Model.Node;
+import BlockIt.Model.Piece;
 import BlockIt.Model.Piece.pieceColor;
 import BlockIt.Model.Position;
 import BlockIt.Model.Tree;
 
 public class MinMax {
 	public static Move bestMove(){
-		return minMaxChild(Tree.head, 0).node.getMove();
+		NodeAssist na=minMaxChild(Tree.head, 0);
+		return na.node.get(na.node.size()-2).getMove();
 	}
 	
 	private static NodeAssist minMaxChild(Node node, int deep){
+		NodeAssist nodeAssist=null;
 		if(node.getChildNodes().size()!=0){
-			NodeAssist childNode=null;
 			List<NodeAssist> naList=new ArrayList<NodeAssist>();
-			
+			int nextDeep=deep+1;
 			for(Node n:node.getChildNodes()){
-				naList.add(minMaxChild(n, deep++));
+				naList.add(minMaxChild(n, nextDeep));
 			}
 			Collections.sort(naList);
 			
 			if(deep%2==0){
-				childNode=naList.get(naList.size()-1);
+				nodeAssist=naList.get(naList.size()-1);
 			}else{
-				childNode=naList.get(0);
+				nodeAssist=naList.get(0);
 			}
-			childNode.setNode(node);
-			return childNode;
+			nodeAssist.addNode(node);
 		}else{
 			List<Move> moves=new ArrayList<Move>();
 			Node currentNode=node;
@@ -42,19 +43,41 @@ public class MinMax {
 			Position[][] boardCopy=Tree.boardCopy(Game.board);
 			while(moves.size()>0)
 				Move.move(boardCopy, moves.remove(moves.size()-1));
-			
-			int heuristic=Tree.getNumPosMoveByColor(boardCopy, pieceColor.WHITE)
-					+Tree.getNumPosMoveByColor(boardCopy, pieceColor.BLACK);
+			int numMoveSelf=getNumPosMoveByColor(boardCopy, Game.currentPlayer.getColor());
+			int numMoveEnemy=getNumPosMoveByColor(boardCopy, Piece.getOppositeColor(Game.currentPlayer.getColor()));
+			int heuristic=0;
+			if(numMoveSelf==0 && deep%2==0){
+				heuristic=Integer.MIN_VALUE;
+			}else if(numMoveEnemy==0 && deep%2==1){
+				heuristic=Integer.MAX_VALUE;
+			}else if(numMoveSelf==0){
+				heuristic=Integer.MIN_VALUE/2;
+			}else if(numMoveEnemy==0){
+				heuristic=Integer.MAX_VALUE/2;
+			}else{
+				heuristic=numMoveSelf-numMoveEnemy;
+			}
 			return new NodeAssist(node, heuristic);
 		}
+		return nodeAssist;
+	}
+	
+	public static int getNumPosMoveByColor(Position[][] board, pieceColor color) {
+		List<Piece> pieces = Tree.getExpandPiece(color, board);
+		int num = 0;
+		for (Piece piece : pieces) {
+			num += piece.getPossibleMove(board).size();
+		}
+		return num;
 	}
 	
 	private static class NodeAssist implements Comparable<NodeAssist>{
-		Node node;
+		List<Node> node;
 		int heuristic;
 		
 		private NodeAssist(Node node, int heuristic) {
-			this.node = node;
+			this.node = new ArrayList<Node>();
+			this.node.add(node);
 			this.heuristic = heuristic;
 		}
 
@@ -66,8 +89,8 @@ public class MinMax {
 		/**
 		 * @param node the node to set
 		 */
-		public void setNode(Node node) {
-			this.node = node;
+		public void addNode(Node n) {
+			node.add(n);
 		}
 	}
 }

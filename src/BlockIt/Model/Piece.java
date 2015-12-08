@@ -1,5 +1,7 @@
 package BlockIt.Model;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +19,10 @@ public abstract class Piece {
 		List<Move> moves = getMove();
 
 		// clear up
-		for (Move move : moves) {
-			if (move == null || board[move.toY][move.toX] != null) {
-				moves.remove(move);
+		for (int i=0; i<moves.size(); i++) {
+			if (moves.get(i) == null || board[moves.get(i).toY][moves.get(i).toX].getPiece()!= null) {
+				moves.remove(i);
+				i--;
 			}
 		}
 		return moves;
@@ -28,6 +31,7 @@ public abstract class Piece {
 	public Piece(pieceColor color, Position position) {
 		this.color = color;
 		this.position = position;
+		this.position.setPiece(this);
 	}
 
 	public Position getPosition() {
@@ -59,8 +63,8 @@ public abstract class Piece {
 
 	protected List<Move> getLongMoves(int x, int y) {
 		List<Move> moves = new ArrayList<Move>();
-		while (Position.getMovePosition(this, x, y) != null
-				&& Position.getMovePosition(this, x, y).getPiece() == null) {
+		while (Position.getMovePositionFromBoardCopy(this, x, y) != null
+				&& Position.getMovePositionFromBoardCopy(this, x, y).getPiece() == null) {
 			moves.add(Move.getMove(this, x, y));
 			if (x > 0)
 				x++;
@@ -84,12 +88,24 @@ public abstract class Piece {
 		return pieceColor.WHITE;
 	}
 
-	public Piece copy() {
+	public Piece copy(Position position) {
 		Piece piece = null;
 		try {
-			piece = Class.forName(this.getClass().getName()).asSubclass(Piece.class).newInstance();
-			piece.setColor(this.getColor());
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			Constructor<? extends Piece> constructor = this.getClass().getDeclaredConstructor(pieceColor.class, Position.class);
+			piece = constructor.newInstance(this.getColor(), position);
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

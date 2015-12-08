@@ -10,30 +10,39 @@ import BlockIt.Model.Position;
 public class Pawn extends Piece {
 
 	private boolean firstMove = true;
+	private int orgX, orgY;
 
 	public Pawn(pieceColor color, Position position) {
 		super(color, position);
+		orgX=position.x;
+		orgY=position.y;
 	}
 
 	@Override
 	public void setPosition(Position position) {
 		firstMove = false;
+		if(position.x==orgX && position.y==orgY)
+			firstMove=true;
 		super.setPosition(position);
 	}
 
 	@Override
 	protected List<Move> getMove() {
 		List<Move> moves = new ArrayList<Move>();
-		if (firstMove) {
-			moves.add(Move.getMove(this, 0, 2));
+		int i=1;
+		if(color==pieceColor.BLACK)
+			i=-1;
+		
+		if (firstMove && Position.getMovePositionFromBoardCopy(this, 0, i*1).getPiece()==null) {
+			moves.add(Move.getMove(this, 0, i*2));
 		}
-		moves.add(Move.getMove(this, 0, 1));
+		moves.add(Move.getMove(this, 0, i*1));
 		return moves;
 	}
 
 	@Override
-	public Piece copy() {
-		Piece p = super.copy();
+	public Piece copy(Position position) {
+		Piece p = super.copy(position);
 		Pawn pawn = (Pawn) p;
 		pawn.firstMove = this.firstMove;
 		return p;

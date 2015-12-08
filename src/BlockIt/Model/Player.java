@@ -1,5 +1,6 @@
 package BlockIt.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import BlockIt.Model.Piece.pieceColor;
@@ -9,9 +10,9 @@ public class Player {
 	private List<Piece> pieses;
 	private pieceColor color;
 
-	public Player(pieceColor color, List<Piece> pieses) {
+	public Player(pieceColor color) {
 		this.color = color;
-		this.pieses = pieses;
+		pieses = new ArrayList<Piece>();
 	}
 
 	/**

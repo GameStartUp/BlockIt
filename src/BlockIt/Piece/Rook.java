@@ -20,10 +20,6 @@ public class Rook extends Piece {
 		moves.addAll(getLongMoves(1, 0));
 		moves.addAll(getLongMoves(0, -1));
 		moves.addAll(getLongMoves(-1, 0));
-		moves.addAll(getLongMoves(1, 1));
-		moves.addAll(getLongMoves(1, -1));
-		moves.addAll(getLongMoves(-1, -1));
-		moves.addAll(getLongMoves(-1, 1));
 		return moves;
 	}
 }
