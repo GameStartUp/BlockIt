@@ -7,19 +7,10 @@ import BlockIt.Model.Piece.pieceColor;
 
 public class Player {
 
-	private List<Piece> pieses;
 	private pieceColor color;
 
 	public Player(pieceColor color) {
 		this.color = color;
-		pieses = new ArrayList<Piece>();
-	}
-
-	/**
-	 * @return the pieses
-	 */
-	public List<Piece> getPieses() {
-		return pieses;
 	}
 
 	/**

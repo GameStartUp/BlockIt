@@ -14,16 +14,16 @@ public class Queen extends Piece {
 	}
 
 	@Override
-	protected List<Move> getMove() {
+	protected List<Move> getMove(Position[][] board) {
 		List<Move> moves = new ArrayList<Move>();
-		moves.addAll(getLongMoves(0, 1));
-		moves.addAll(getLongMoves(1, 0));
-		moves.addAll(getLongMoves(0, -1));
-		moves.addAll(getLongMoves(-1, 0));
-		moves.addAll(getLongMoves(1, 1));
-		moves.addAll(getLongMoves(1, -1));
-		moves.addAll(getLongMoves(-1, -1));
-		moves.addAll(getLongMoves(-1, 1));
+		moves.addAll(getLongMoves(board, 0, 1));
+		moves.addAll(getLongMoves(board, 1, 0));
+		moves.addAll(getLongMoves(board, 0, -1));
+		moves.addAll(getLongMoves(board, -1, 0));
+		moves.addAll(getLongMoves(board, 1, 1));
+		moves.addAll(getLongMoves(board, 1, -1));
+		moves.addAll(getLongMoves(board, -1, -1));
+		moves.addAll(getLongMoves(board, -1, 1));
 		return moves;
 	}
 }

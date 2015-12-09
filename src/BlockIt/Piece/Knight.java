@@ -14,7 +14,7 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	protected List<Move> getMove() {
+	protected List<Move> getMove(Position[][] board) {
 		List<Move> moves = new ArrayList<Move>();
 		moves.add(Move.getMove(this, 1, 2));
 		moves.add(Move.getMove(this, 2, 1));

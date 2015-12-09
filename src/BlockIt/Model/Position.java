@@ -27,24 +27,13 @@ public class Position {
 		this.piece = piece;
 	}
 
-	public static Position getMovePosition(Piece piece, int x, int y) {
-		return getPosition(piece.getPosition().x + x, piece.getPosition().y + y);
-	}
-	
-	public static Position getMovePositionFromBoardCopy(Piece piece, int x, int y) {
-		return getPositionFromBoardCopy(piece.getPosition().x + x, piece.getPosition().y + y);
+	public static Position getMovePosition(Position[][] board, Piece piece, int x, int y) {
+		return getPosition(board, piece.getPosition().x + x, piece.getPosition().y + y);
 	}
 
-	public static Position getPosition(int x, int y) {
+	public static Position getPosition(Position[][] board, int x, int y) {
 		if (x >= 0 && x < Game.boardSize && y >= 0 && y < Game.boardSize)
-			return Game.board[y][x];
-		else
-			return null;
-	}
-	
-	public static Position getPositionFromBoardCopy(int x, int y) {
-		if (x >= 0 && x < Game.boardSize && y >= 0 && y < Game.boardSize)
-			return Tree.boardCopy[y][x];
+			return board[y][x];
 		else
 			return null;
 	}

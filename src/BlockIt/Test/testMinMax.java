@@ -6,14 +6,12 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import BlockIt.Control.MinMax;
+import BlockIt.Control.AlaphaBeta;
 import BlockIt.Control.Move;
 import BlockIt.Model.Game;
 import BlockIt.Model.Piece;
 import BlockIt.Model.Piece.pieceColor;
-import BlockIt.Model.Player;
 import BlockIt.Model.Position;
-import BlockIt.Model.Tree;
 import BlockIt.Piece.Bishop;
 import BlockIt.Piece.King;
 import BlockIt.Piece.Knight;
@@ -27,17 +25,21 @@ public class testMinMax {
 	public void init(){
 		List<Piece> pieces= new ArrayList<Piece>();
 		int size=6;
-		pieces.add(new Pawn(pieceColor.WHITE, new Position(2, 2)));
-		pieces.add(new Queen(pieceColor.WHITE, new Position(3, 2)));
-		pieces.add(new Knight(pieceColor.WHITE, new Position(0, 2)));
-		pieces.add(new King(pieceColor.WHITE, new Position(1, 2)));
-		pieces.add(new Bishop(pieceColor.WHITE, new Position(4, 2)));
-		pieces.add(new Rook(pieceColor.WHITE, new Position(5, 2)));
+		pieces.add(new Pawn(pieceColor.WHITE, new Position(2, 0)));
+		pieces.add(new Queen(pieceColor.WHITE, new Position(3, 0)));
+		pieces.add(new Knight(pieceColor.WHITE, new Position(0, 0)));
+		pieces.add(new King(pieceColor.WHITE, new Position(1, 0)));
+		pieces.add(new Bishop(pieceColor.WHITE, new Position(4, 0)));
+		pieces.add(new Rook(pieceColor.WHITE, new Position(5, 0)));
 		pieces.add(new Pawn(pieceColor.BLACK, new Position(2, 5)));
-		pieces.add(new Pawn(pieceColor.BLACK, new Position(3, 5)));
+		pieces.add(new Queen(pieceColor.BLACK, new Position(3, 5)));
+		pieces.add(new Knight(pieceColor.BLACK, new Position(0, 5)));
+		pieces.add(new King(pieceColor.BLACK, new Position(1, 5)));
+		pieces.add(new Bishop(pieceColor.BLACK, new Position(4,5)));
+		pieces.add(new Rook(pieceColor.BLACK, new Position(5, 5)));
 		new Game(size, pieces);
 	}
-	
+	/**
 	@Test
 	public void testMinMax(){
 		System.out.println(System.currentTimeMillis());
@@ -47,5 +49,16 @@ public class testMinMax {
 		System.out.println(System.currentTimeMillis());
 		Move.move(Game.board, move);
 		Position.printBoard(Game.board);
+	}
+	**/
+	@Test
+	public void testAlaphaBeta(){
+		for(int i=0; i<20; i++){
+			AlaphaBeta.setMaxDepth(4);
+			Move move=AlaphaBeta.getNextMove();
+			Move.move(Game.board, move);
+			Position.printBoard(Game.board);
+			Game.nextPlayer();
+		}
 	}
 }

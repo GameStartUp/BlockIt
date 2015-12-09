@@ -27,13 +27,13 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	protected List<Move> getMove() {
+	protected List<Move> getMove(Position[][] board) {
 		List<Move> moves = new ArrayList<Move>();
 		int i=1;
 		if(color==pieceColor.BLACK)
 			i=-1;
 		
-		if (firstMove && Position.getMovePositionFromBoardCopy(this, 0, i*1).getPiece()==null) {
+		if (firstMove && Position.getMovePosition(board, this, 0, i*1).getPiece()==null) {
 			moves.add(Move.getMove(this, 0, i*2));
 		}
 		moves.add(Move.getMove(this, 0, i*1));

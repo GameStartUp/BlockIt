@@ -16,7 +16,7 @@ public abstract class Piece {
 	protected pieceColor color;
 
 	public List<Move> getPossibleMove(Position[][] board) {
-		List<Move> moves = getMove();
+		List<Move> moves = getMove(board);
 
 		// clear up
 		for (int i=0; i<moves.size(); i++) {
@@ -61,10 +61,10 @@ public abstract class Piece {
 		this.position = position;
 	}
 
-	protected List<Move> getLongMoves(int x, int y) {
+	protected List<Move> getLongMoves(Position[][] board,  int x, int y) {
 		List<Move> moves = new ArrayList<Move>();
-		while (Position.getMovePositionFromBoardCopy(this, x, y) != null
-				&& Position.getMovePositionFromBoardCopy(this, x, y).getPiece() == null) {
+		while (Position.getMovePosition(board, this, x, y) != null
+				&& Position.getMovePosition(board, this, x, y).getPiece() == null) {
 			moves.add(Move.getMove(this, x, y));
 			if (x > 0)
 				x++;
@@ -79,7 +79,7 @@ public abstract class Piece {
 		return moves;
 	}
 
-	protected abstract List<Move> getMove();
+	protected abstract List<Move> getMove(Position[][] board);
 
 	public static pieceColor getOppositeColor(pieceColor color) {
 		if (color == pieceColor.WHITE) {
