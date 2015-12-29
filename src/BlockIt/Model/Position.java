@@ -50,23 +50,23 @@ public class Position extends Object{
 			for(int j=0; j<Game.boardSize; j++){
 				char c='_';
 				if(board[i][j].getPiece()!=null){
-					switch(board[i][j].getPiece().getClass().getSimpleName()){
-					case "Pawn":
+					switch(board[i][j].getPiece().getClass().getSimpleName().charAt(2)){
+					case 'w':
 						c = 'p';
 						break;
-					case "Rook":
+					case 'o':
 						c = 'r';
 						break;
-					case "Knight":
+					case 'i':
 						c = 'k';
 						break;
-					case "Bishop":
+					case 's':
 						c = 'b';
 						break;
-					case "Queen":
+					case 'e':
 						c = 'q';
 						break;
-					case "King":
+					case 'n':
 						c = 'K';
 						break;
 					}

@@ -10,7 +10,7 @@ import BlockIt.Control.Move;
 public abstract class Piece extends Object{
 	public static enum pieceColor {
 		WHITE, BLACK
-	};
+	}
 
 	protected Position position;
 	protected pieceColor color;
@@ -98,22 +98,19 @@ public abstract class Piece extends Object{
 		try {
 			Constructor<? extends Piece> constructor = this.getClass().getDeclaredConstructor(pieceColor.class, Position.class);
 			piece = constructor.newInstance(this.getColor(), position);
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return piece;
+		} catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return piece;
 	}
 }
