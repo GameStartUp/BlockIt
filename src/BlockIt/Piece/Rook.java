@@ -16,10 +16,10 @@ public class Rook extends Piece {
 	@Override
 	protected List<Move> getMove(Position[][] board) {
 		List<Move> moves = new ArrayList<Move>();
-		moves.addAll(getLongMoves(board, 0, 1));
-		moves.addAll(getLongMoves(board, 1, 0));
-		moves.addAll(getLongMoves(board, 0, -1));
-		moves.addAll(getLongMoves(board, -1, 0));
+		moves.addAll(getLongMoves(board, 0, forward * 1));
+		moves.addAll(getLongMoves(board, 1, forward * 0));
+		moves.addAll(getLongMoves(board, -1, forward * 0));
+		moves.addAll(getLongMoves(board, 0, forward * -1));
 		return moves;
 	}
 }

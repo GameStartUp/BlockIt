@@ -14,6 +14,7 @@ public abstract class Piece extends Object{
 
 	protected Position position;
 	protected pieceColor color;
+	protected int forward;
 
 	public List<Move> getPossibleMove(Position[][] board) {
 		List<Move> moves = getMove(board);
@@ -32,6 +33,10 @@ public abstract class Piece extends Object{
 		this.color = color;
 		this.position = position;
 		this.position.setPiece(this);
+		if(color==pieceColor.WHITE)
+			forward=1;
+		else
+			forward=-1;
 	}
 
 	public Position getPosition() {

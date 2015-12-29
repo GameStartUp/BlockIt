@@ -16,14 +16,14 @@ public class Knight extends Piece {
 	@Override
 	protected List<Move> getMove(Position[][] board) {
 		List<Move> moves = new ArrayList<Move>();
-		moves.add(Move.getMove(this, 1, 2));
-		moves.add(Move.getMove(this, 2, 1));
-		moves.add(Move.getMove(this, 1, -2));
-		moves.add(Move.getMove(this, 2, -1));
-		moves.add(Move.getMove(this, -1, -2));
-		moves.add(Move.getMove(this, -2, -1));
-		moves.add(Move.getMove(this, -1, 2));
-		moves.add(Move.getMove(this, -2, 1));
+		moves.add(Move.getMove(this, 1, forward * 2));
+		moves.add(Move.getMove(this, -1, forward * 2));
+		moves.add(Move.getMove(this, 2, forward * 1));
+		moves.add(Move.getMove(this, -2, forward * 1));
+		moves.add(Move.getMove(this, 2, forward * -1));
+		moves.add(Move.getMove(this, -2, forward * -1));
+		moves.add(Move.getMove(this, 1, forward * -2));
+		moves.add(Move.getMove(this, -1, forward * -2));
 		return moves;
 	}
 }
