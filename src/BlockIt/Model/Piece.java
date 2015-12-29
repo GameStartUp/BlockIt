@@ -7,7 +7,7 @@ import java.util.List;
 
 import BlockIt.Control.Move;
 
-public abstract class Piece {
+public abstract class Piece extends Object{
 	public static enum pieceColor {
 		WHITE, BLACK
 	};

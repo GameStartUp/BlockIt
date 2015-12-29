@@ -3,6 +3,7 @@ package BlockIt.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import BlockIt.Control.AlaphaBeta;
 import BlockIt.Control.Move;
 import BlockIt.Model.Piece.pieceColor;
 
@@ -37,5 +38,9 @@ public class Game {
 	public static void nextPlayer() {
 		int i = players.indexOf(currentPlayer) + 1;
 		currentPlayer = players.get(i % players.size());
+	}
+	
+	public static boolean gameover(){
+		return AlaphaBeta.getNumPosMoveByColor(board, currentPlayer.getColor())==0;
 	}
 }

@@ -53,7 +53,7 @@ public class testMinMax {
 	**/
 	@Test
 	public void testAlaphaBeta(){
-		for(int i=0; i<20; i++){
+		while(!Game.gameover()){
 			AlaphaBeta.setMaxDepth(4);
 			Move move=AlaphaBeta.getNextMove();
 			Move.move(Game.board, move);

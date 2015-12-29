@@ -123,7 +123,7 @@ public class AlaphaBeta {
 		return pieces;
 	}
 	
-	private static int getNumPosMoveByColor(Position[][] board, pieceColor color) {
+	public static int getNumPosMoveByColor(Position[][] board, pieceColor color) {
 		List<Piece> pieces = getExpandPiece(color, board);
 		int num = 0;
 		for (Piece piece : pieces) {

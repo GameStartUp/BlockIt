@@ -1,11 +1,8 @@
 package BlockIt.Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import BlockIt.Model.Piece.pieceColor;
 
-public class Player {
+public class Player extends Object{
 
 	private pieceColor color;
 

@@ -1,6 +1,6 @@
 package BlockIt.Model;
 
-public class Position {
+public class Position extends Object{
 
 	public int x;
 	public int y;

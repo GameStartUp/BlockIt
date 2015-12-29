@@ -1,7 +1,5 @@
 package BlockIt.Control;
 
-import java.util.List;
-
 import BlockIt.Model.Position;
 
 public class Node {
